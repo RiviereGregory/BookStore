@@ -12,6 +12,6 @@ class Book(
     var author: String,
     var summary: String,
     @ColumnInfo(name = "picture_url")
-var pictureUrl: String
+    var pictureUrl: String
 
 )
