@@ -48,7 +48,9 @@ class BooksListAdapter(
         }
     }
 
-    override fun onClick(p0: View?) {
-        TODO("Not yet implemented")
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.cardView -> listener?.onBookSelected(v?.tag as Book)
+        }
     }
 }

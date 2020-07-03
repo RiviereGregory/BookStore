@@ -1,5 +1,6 @@
 package gri.riverjach.bookstore.bookslist
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -7,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import gri.riverjach.bookstore.Book
 import gri.riverjach.bookstore.R
+import gri.riverjach.bookstore.bookdetail.BookDetailActivity
 import kotlinx.android.synthetic.main.activity_books.*
 import timber.log.Timber
 
@@ -26,7 +28,7 @@ class BooksListActivity : AppCompatActivity(), BooksListAdapter.BooksListAdapter
             layoutManager = LinearLayoutManager(this@BooksListActivity)
             adapter = booksAdapter
         }
-        swipeRefresh.setOnRefreshListener{
+        swipeRefresh.setOnRefreshListener {
             viewModel.refreshBooks()
         }
 
@@ -43,7 +45,9 @@ class BooksListActivity : AppCompatActivity(), BooksListAdapter.BooksListAdapter
     }
 
     override fun onBookSelected(book: Book) {
-        TODO("Not yet implemented")
+        val intent = Intent(this, BookDetailActivity::class.java)
+        intent.putExtra(BookDetailActivity.EXTRAT_BOOK_ID, book.id)
+        startActivity(intent)
     }
 
 
