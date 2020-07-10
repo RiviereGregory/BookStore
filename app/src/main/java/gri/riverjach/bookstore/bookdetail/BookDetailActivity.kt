@@ -1,12 +1,15 @@
 package gri.riverjach.bookstore.bookdetail
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.squareup.picasso.Picasso
 import gri.riverjach.bookstore.Book
 import gri.riverjach.bookstore.R
+import gri.riverjach.bookstore.bookslist.BooksListActivity
 import kotlinx.android.synthetic.main.activity_book_detail.*
 import timber.log.Timber
 
@@ -27,7 +30,19 @@ class BookDetailActivity : AppCompatActivity() {
         //Permet d'ajouter des parametres au viewModel
         val factory = BookDetailViewModelFactory(bookId)
         viewModel = ViewModelProvider(this, factory).get(BookDetailViewModel::class.java)
-        viewModel.book.observe(this, Observer { book -> updateBook(book!!) })
+        viewModel.book.observe(this, Observer { book ->
+            if (book != null) {
+                updateBook(book)
+            }
+        })
+
+        findViewById<Button>(R.id.deleteBook).setOnClickListener {
+            viewModel.deleteBook(bookId)
+            Timber.i("Book deleted Book id=$bookId")
+            val intent = Intent(this, BooksListActivity::class.java)
+            intent.action = Intent.ACTION_VIEW
+            startActivity(intent)
+        }
     }
 
     private fun updateBook(book: Book) {

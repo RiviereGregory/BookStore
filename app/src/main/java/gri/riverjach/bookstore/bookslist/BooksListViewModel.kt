@@ -9,6 +9,6 @@ class BooksListViewModel : ViewModel() {
     val books: LiveData<List<Book>> = App.db.bookDao().getAllBooks()
 
     fun refreshBooks() {
-        App.repository.SyncBooksNow()
+        App.repository.syncBooksNow()
     }
 }

@@ -9,7 +9,18 @@ class BookRepository {
         .setRequiredNetworkType(NetworkType.CONNECTED)
         .build()
 
-    fun SyncBooksNow() {
+
+    fun deleteBookNow(id: Int) {
+        Timber.i("Deleting book now")
+        val work = OneTimeWorkRequestBuilder<DeleteBookWorker>()
+            .setInputData(workDataOf("bookId" to id))
+            .build()
+
+        WorkManager.getInstance()
+            .beginUniqueWork("deleteBookIdNow", ExistingWorkPolicy.REPLACE, work).enqueue()
+    }
+
+    fun syncBooksNow() {
         Timber.i("Synchronizing books now")
         val work = OneTimeWorkRequestBuilder<SyncRepositoryWorker>()
             .setConstraints(constraints)

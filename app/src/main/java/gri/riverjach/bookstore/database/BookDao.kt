@@ -9,7 +9,7 @@ import gri.riverjach.bookstore.Book
 @Dao
 interface BookDao {
 
-    @Query("SELECT * FROM book")
+    @Query("SELECT * FROM book ORDER BY title")
     fun getAllBooks(): LiveData<List<Book>>
 
     @Query("SELECT * FROM book WHERE id = :id")
@@ -17,4 +17,8 @@ interface BookDao {
 
     @Insert
     fun insertBook(books: List<Book>)
+
+    @Query("DELETE FROM book WHERE id = :id")
+    fun deleteBookById(id: Int)
+
 }

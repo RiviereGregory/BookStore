@@ -17,4 +17,8 @@ class BookDetailViewModel(bookId: Int) : ViewModel() {
     init {
         bookIdLiveData.value = bookId
     }
+
+    fun deleteBook(id: Int) {
+            App.repository.deleteBookNow(id)
+    }
 }
